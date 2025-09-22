@@ -4,11 +4,13 @@ import type React from "react"
 
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -18,26 +20,28 @@ export default function LoginPage() {
     await new Promise((resolve) => setTimeout(resolve, 1000))
 
     setIsLoading(false)
-    // Handle login logic here
+    router.push("/dashboard")
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F5F3] flex flex-col justify-center items-center px-4">
+    <div className="min-h-screen bg-background flex flex-col justify-center items-center px-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-block mb-6">
-            <div className="text-[#2F3037] text-2xl font-medium font-sans">FarmSight</div>
+            <div className="text-foreground text-2xl font-medium font-sans">FarmSight</div>
           </Link>
-          <h1 className="text-[#37322F] text-2xl font-semibold font-sans mb-2">Welcome back</h1>
-          <p className="text-[#605A57] text-base font-normal font-sans">Sign in to your farm management dashboard</p>
+          <h1 className="text-foreground text-2xl font-semibold font-sans mb-2">Welcome back</h1>
+          <p className="text-muted-foreground text-base font-normal font-sans">
+            Sign in to your farm management dashboard
+          </p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-lg shadow-[0px_0px_0px_1px_rgba(55,50,47,0.08)] p-8">
+        <div className="bg-card rounded-lg shadow-[0px_0px_0px_1px_rgba(55,50,47,0.08)] p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-[#37322F] mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-card-foreground mb-2">
                 Email address
               </label>
               <input
@@ -46,13 +50,13 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-3 py-2 border border-[rgba(55,50,47,0.12)] rounded-md shadow-sm placeholder-[#605A57] focus:outline-none focus:ring-2 focus:ring-[#37322F] focus:border-transparent"
+                className="w-full px-3 py-2 border border-border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-h-[44px]"
                 placeholder="Enter your email"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-[#37322F] mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-card-foreground mb-2">
                 Password
               </label>
               <input
@@ -61,7 +65,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-3 py-2 border border-[rgba(55,50,47,0.12)] rounded-md shadow-sm placeholder-[#605A57] focus:outline-none focus:ring-2 focus:ring-[#37322F] focus:border-transparent"
+                className="w-full px-3 py-2 border border-border rounded-md shadow-sm placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-h-[44px]"
                 placeholder="Enter your password"
               />
             </div>
@@ -71,15 +75,15 @@ export default function LoginPage() {
                 <input
                   id="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-[#37322F] focus:ring-[#37322F] border-[rgba(55,50,47,0.12)] rounded"
+                  className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-[#605A57]">
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-muted-foreground">
                   Remember me
                 </label>
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium text-[#37322F] hover:text-[#49423D]">
+                <a href="#" className="font-medium text-primary hover:text-primary/80">
                   Forgot your password?
                 </a>
               </div>
@@ -88,12 +92,12 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#37322F] hover:bg-[#49423D] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#37322F] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px]"
             >
               {isLoading ? (
                 <div className="flex items-center">
                   <svg
-                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-primary-foreground"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -123,17 +127,17 @@ export default function LoginPage() {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-[rgba(55,50,47,0.12)]" />
+                <div className="w-full border-t border-border" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-[#605A57]">Or continue with</span>
+                <span className="px-2 bg-card text-muted-foreground">Or continue with</span>
               </div>
             </div>
 
             <div className="mt-6 grid grid-cols-2 gap-3">
               <button
                 type="button"
-                className="w-full inline-flex justify-center py-2 px-4 border border-[rgba(55,50,47,0.12)] rounded-md shadow-sm bg-white text-sm font-medium text-[#37322F] hover:bg-gray-50"
+                className="w-full inline-flex justify-center py-2 px-4 border border-border rounded-md shadow-sm bg-card text-sm font-medium text-primary-foreground hover:bg-card/80"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">
                   <path
@@ -158,7 +162,7 @@ export default function LoginPage() {
 
               <button
                 type="button"
-                className="w-full inline-flex justify-center py-2 px-4 border border-[rgba(55,50,47,0.12)] rounded-md shadow-sm bg-white text-sm font-medium text-[#37322F] hover:bg-gray-50"
+                className="w-full inline-flex justify-center py-2 px-4 border border-border rounded-md shadow-sm bg-card text-sm font-medium text-primary-foreground hover:bg-card/80"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.097.118.112.221.083.343-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z" />
@@ -168,9 +172,9 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <p className="mt-8 text-center text-sm text-[#605A57]">
+          <p className="mt-8 text-center text-sm text-muted-foreground">
             Don't have an account?{" "}
-            <a href="#" className="font-medium text-[#37322F] hover:text-[#49423D]">
+            <a href="#" className="font-medium text-primary hover:text-primary/80">
               Start your free trial
             </a>
           </p>
